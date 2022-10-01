@@ -4,6 +4,7 @@ create a *config.ini* file with the following contentswith the following content
 
 ```
 token=your-api-token
+user_id=your-profile-id
 ```
 
 # Run

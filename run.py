@@ -1,9 +1,12 @@
 from configparser import ConfigParser
-from vkbottle.bot import Bot
+from vkbottle.user import User
 
+from src import blueprints, config
 
-config = ConfigParser().read("config.ini")
-bot = Bot(config["token"])
+bot = User(config.TOKEN)
+
+for bp in blueprints.blueprints:
+    bp.load(bot)
 
 print("Started!")
 bot.run_forever()
