@@ -1,8 +1,8 @@
 from configparser import ConfigParser
 
 
-config = ConfigParser()
-config.read("./config.ini")
+_config = ConfigParser()
+_config.read("./config.ini")
 
-TOKEN = config["DEFAULT"]["token"]
-USER_ID = int(config["DEFAULT"]["user_id"])
+TOKEN = _config["DEFAULT"]["token"]
+USER_ID = int(_config["DEFAULT"]["user_id"])
