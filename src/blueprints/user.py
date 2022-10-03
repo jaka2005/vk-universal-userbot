@@ -3,12 +3,6 @@ from vkbottle import ABCRule, BaseMiddleware
 
 from src import config, wiki_parser
 
-class FromUserRule(ABCRule[Message]):
-    def __init__(self, user_id: int):
-        self.user_id = user_id
-
-    async def check(self, msg: Message) -> bool:
-        return msg.from_id == self.user_id
 
 class UserCommand(BaseMiddleware[Message]):
     async def pre(self):
@@ -33,7 +27,12 @@ async def send_wiki_definition(msg: Message, item: str):
         wiki_parser.term_to_wiki_url(item)
     ))
 
-@bp.on.message(text=["> <item>"])
-def solve_expression(msg: Message, item: str):
-    ...
+@bp.on.message(text=["! <item>"])
+async def solve_expression(msg: Message, item: str):
+    try:
+        res = eval(item)
+        await msg.reply(f"res: {res.__class__.__name__} = {res}")
+
+    except Exception as e:
+        await msg.reply(f"{e.__class__.__name__}: {e}")  
     
