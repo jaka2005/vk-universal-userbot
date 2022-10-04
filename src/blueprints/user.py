@@ -1,5 +1,5 @@
 from vkbottle.user import Blueprint, Message
-from vkbottle import ABCRule, BaseMiddleware
+from vkbottle import BaseMiddleware
 
 from src import config, wiki_parser
 
