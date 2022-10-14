@@ -1,4 +1,3 @@
-from configparser import ConfigParser
 from vkbottle.user import User
 
 from src import blueprints, config

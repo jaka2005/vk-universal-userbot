@@ -14,25 +14,35 @@ class UserCommand(BaseMiddleware[Message]):
             await bp.api.messages.delete(
                 self.event.get_message_id(),
                 peer_id=self.event.chat_id,
-                delete_for_all=1
+                delete_for_all=True
             )
-        
+
 
 bp = Blueprint("for user command")
 bp.labeler.message_view.register_middleware(UserCommand)
 
-@bp.on.message(text=["/вики <item>", "/wiki <item>"])
+
+@bp.on.message(text=("/вики <item>", "/wiki <item>"))
 async def send_wiki_definition(msg: Message, item: str):
     await msg.reply(wiki_parser.get_definition(
         wiki_parser.term_to_wiki_url(item)
     ))
 
-@bp.on.message(text=["! <item>"])
+
+@bp.on.message(text="! <item>")
 async def solve_expression(msg: Message, item: str):
     try:
         res = eval(item)
         await msg.reply(f"res: {res.__class__.__name__} = {res}")
 
     except Exception as e:
-        await msg.reply(f"{e.__class__.__name__}: {e}")  
-    
+        await msg.reply(f"{e.__class__.__name__}: {e}")
+
+
+@bp.on.message(func=lambda msg: any(word in msg.text for word in config.SWEAR_WORDS))
+async def dirty_censoring(msg: Message):
+    text = msg.text
+    for word in config.SWEAR_WORDS:
+        text = text.replace(word, word[0] + "*" * (len(word) - 2) + word[-1])
+
+    await msg.answer(text)

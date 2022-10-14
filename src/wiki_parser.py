@@ -8,5 +8,6 @@ def get_definition(url: str) -> str:
 
     return soup.p.get_text()
 
+
 def term_to_wiki_url(term: str) -> str:
     return "https://ru.wikipedia.org/wiki/" + term.replace(' ', '_')
