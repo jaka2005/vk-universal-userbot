@@ -7,6 +7,7 @@
 [DEFAULT]
 token = your-api-token
 user_id = your-profile-id
+swear_words = some/swear/words
 ```
 
 # Run
@@ -19,3 +20,4 @@ the bot provides the following functionsthe bot provides the following functions
 
 1. `/wiki <term>` - returns definition from wikipediareturns definition from wikipedia
 2. `! <expression>`  - returns result of evaluated expression or error
+3. censoring swear words from the list, example `word => w**d`
