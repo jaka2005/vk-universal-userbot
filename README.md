@@ -1,13 +1,19 @@
 # Setup
 
 * Install dependencies from requirements.txt. for this, you can use - `pip install -r requirements.txt`.
-* Create a *config.ini* file with the following contentswith the following contents:
+* Create a *config.json* file with the following contentswith the following contents:
 
-```
-[DEFAULT]
-token = your-api-token
-user_id = your-profile-id
-swear_words = some/swear/words
+```json
+{
+    "init" : {
+        "token" : "your-api-token",
+        "user_id" : your-profile-id
+    },
+    "preferences" : {
+        "swear_words" : ["some", "swear", "words"],
+        "censoring" : true
+    }
+}
 ```
 
 # Run

@@ -1,12 +1,13 @@
 from vkbottle.user import Blueprint, Message
 from vkbottle import BaseMiddleware
 
-from src import config, wiki_parser
+from src import wiki_parser
+from src.config import config
 
 
 class UserCommand(BaseMiddleware[Message]):
     async def pre(self):
-        if self.event.from_id != config.USER_ID:
+        if self.event.from_id != config.init.user_id:
             self.stop("it's not from registered user")
 
     async def post(self):
@@ -42,7 +43,7 @@ async def solve_expression(msg: Message, item: str):
 @bp.on.message(func=lambda msg: any(word in msg.text for word in config.SWEAR_WORDS))
 async def dirty_censoring(msg: Message):
     text = msg.text
-    for word in config.SWEAR_WORDS:
+    for word in config.preferences.swear_words:
         text = text.replace(word, word[0] + "*" * (len(word) - 2) + word[-1])
 
     await msg.answer(text)
