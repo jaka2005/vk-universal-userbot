@@ -10,7 +10,7 @@
         "user_id" : 123456789 // your vk user_id
     },
     "preferences" : {
-        "swear_words" : ["some", "swear", "words"],
+        "swear_words" : ["some", "words", "for", "censoring"],
         "censoring" : true // or false
     }
 }

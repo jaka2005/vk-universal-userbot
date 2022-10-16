@@ -40,7 +40,9 @@ async def solve_expression(msg: Message, item: str):
         await msg.reply(f"{e.__class__.__name__}: {e}")
 
 
-@bp.on.message(func=lambda msg: any(word in msg.text for word in config.SWEAR_WORDS))
+@bp.on.message(func=lambda msg: any(
+    word in msg.text for word in config.preferences.swear_words
+))
 async def dirty_censoring(msg: Message):
     text = msg.text
     for word in config.preferences.swear_words:
