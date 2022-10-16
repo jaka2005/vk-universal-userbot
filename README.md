@@ -4,14 +4,14 @@
 * Create a *config.json* file with the following contentswith the following contents:
 
 ```json
-{
+ {
     "init" : {
         "token" : "your-api-token",
-        "user_id" : your-profile-id
+        "user_id" : 123456789 // your vk user_id
     },
     "preferences" : {
         "swear_words" : ["some", "swear", "words"],
-        "censoring" : true
+        "censoring" : true // or false
     }
 }
 ```
