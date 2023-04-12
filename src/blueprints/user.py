@@ -14,7 +14,7 @@ class UserCommand(BaseMiddleware[Message]):
         if self.handlers:
             await bp.api.messages.delete(
                 self.event.get_message_id(),
-                peer_id=self.event.chat_id,
+                peer_id=self.event.peer_id,
                 delete_for_all=True
             )
 
@@ -41,11 +41,22 @@ async def solve_expression(msg: Message, item: str):
 
 
 @bp.on.message(func=lambda msg: any(
-    word in msg.text for word in config.preferences.swear_words
+    word in msg.text.lower() for word in config.preferences.swear_words
 ))
 async def dirty_censoring(msg: Message):
     text = msg.text
+    
+    indexes = []
+    for index, letter in enumerate(text):
+        if letter.isupper():
+            indexes.append(index)
+    
+    text = text.lower()
     for word in config.preferences.swear_words:
         text = text.replace(word, word[0] + "*" * (len(word) - 2) + word[-1])
+    
+    chars = list(text)
+    for index in indexes:
+        chars[index] = chars[index].upper()
 
-    await msg.answer(text)
+    await msg.answer("".join(chars))

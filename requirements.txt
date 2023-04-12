@@ -28,4 +28,4 @@ soupsieve==2.3.2.post1
 urllib3==1.26.12
 
 # config
-dacite=1.6.0
+dacite==1.6.0
